@@ -58,6 +58,7 @@ class Blockchain:
             
             previous_block = block
             block_index += 1
+        return True
             
         
 # Part 2 -  Mining your Blockchain 
@@ -82,6 +83,18 @@ def mine_block():
                 'proof': block['proof'],
                 'previous_hash': block['previous_hash']}
     return jsonify(response), 200
+
+# Checking if the blockchain is valid
+    
+@app.route('/is_valid', methods = ['GET'])
+def is_valid():
+    is_valid = blockchain.is_chain_valid(blockchain.chain)
+    if(is_valid == True):
+        response = {'message' : 'all good the blockchain is valid'}
+    else:
+        response = {'message' : 'blockchain is not valid tmkb'}
+    return jsonify(response), 200
+
 
 # Getting the Full Blockchain
 @app.route('/get_chain', methods = ['GET'])
